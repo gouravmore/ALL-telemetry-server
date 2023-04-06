@@ -37,7 +37,6 @@ let Events = mongoose.model('Events', {
     }
 });
 
-
 app.post('/telemetry/upload', (req, res) => {
     const telemetryData = req.body.events.map(function(data){
         return {
@@ -54,4 +53,4 @@ app.post('/telemetry/upload', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT)
+app.listen(process.env.PORT, () => { console.log("server is running on ", process.env.PORT)})
