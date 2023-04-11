@@ -9,6 +9,7 @@ app.get('/', function (req, res) {
   res.send('Server')
 })
 
+
 mongoose.connect(process.env.MONGODB_URL,{
 useNewUrlParser: true,
 useUnifiedTopology: true,
@@ -21,7 +22,7 @@ var telemetrySchema = new mongoose.Schema({
     data: []
 });
 
-
+ 
 let Events = mongoose.model('Events', {
     name: {
         type: String,
@@ -37,6 +38,16 @@ let Events = mongoose.model('Events', {
     }
 });
 
+app.get('/getTelemetry', async (req, res) => {
+    try {
+      const events = await Events.find({ });
+      res.send(events);
+      console.log("events sent")
+    } catch (err) {
+      console.log(err);
+    }
+  })
+  
 app.post('/telemetry/upload', (req, res) => {
     const telemetryData = req.body.events.map(function(data){
         return {
@@ -46,8 +57,8 @@ app.post('/telemetry/upload', (req, res) => {
     })
 
     Events.insertMany(telemetryData).then(function(){
-        res.status(200).send({'message': 'Data insterted', data: telemetryData})
-        console.log("Data inserted")  // Success
+        res.status(200).send({'message': 'Telemetry added successfully ', data: telemetryData})
+        console.log("Telemetry added successfully")  // Success
     }).catch(function(error){
         console.log(error)      // Failure
     });
