@@ -4,11 +4,18 @@ const app = express()
 app.use(bodyParser.json());
 const mongoose = require('mongoose');
 require('dotenv').config()
+const cors = require('cors');
 
 app.get('/', function (req, res) {
   res.send('Server')
 })
 
+var corsOptions = {
+    origin: process.env.WHITELIST_URL,
+    optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGODB_URL,{
 useNewUrlParser: true,
