@@ -10,12 +10,7 @@ app.get('/', function (req, res) {
   res.send('Server')
 })
 
-var corsOptions = {
-    origin: process.env.WHITELIST_URL,
-    optionsSuccessStatus: 200 // For legacy browser support
-}
-
-app.use(cors(corsOptions));
+app.use(cors())
 
 mongoose.connect(process.env.MONGODB_URL,{
 useNewUrlParser: true,
