@@ -40,15 +40,15 @@ let Events = mongoose.model('Events', {
     }
 });
 
-app.get('/getTelemetry', async (req, res) => {
-    try {
-      const events = await Events.find({ });
-      res.send(events);
-      console.log("events sent")
-    } catch (err) {
-      console.log(err);
-    }
-  })
+// app.get('/getTelemetry', async (req, res) => {
+//     try {
+//       const events = await Events.find({ });
+//       res.send(events);
+//       console.log("events sent")
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   })
   
 app.post('/telemetry/upload', (req, res) => {
     const telemetryData = req.body.events.map(function(data){
@@ -59,7 +59,7 @@ app.post('/telemetry/upload', (req, res) => {
     })
 
     Events.insertMany(telemetryData).then(function(){
-        res.status(200).send({'message': 'Telemetry added successfully ', data: telemetryData})
+        res.status(200).send({'message': 'Telemetry added successfully'})
         console.log("Telemetry added successfully")  // Success
     }).catch(function(error){
         console.log(error)      // Failure
