@@ -40,15 +40,15 @@ let Events = mongoose.model('Events', {
     }
 });
 
-// app.get('/getTelemetry', async (req, res) => {
-//     try {
-//       const events = await Events.find({ });
-//       res.send(events);
-//       console.log("events sent")
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   })
+app.get('/getTelemetry', async (req, res) => {
+    try {
+      const events = await Events.find({ });
+      res.send(events);
+      console.log("events sent")
+    } catch (err) {
+      console.log(err);
+    }
+  })
   
 app.post('/telemetry/upload', (req, res) => {
     const telemetryData = req.body.events.map(function(data){
